@@ -120,6 +120,12 @@
             background: #ef4444;
         }
 
+        .btn-ranking {
+            color: #fff;
+            background: linear-gradient(135deg, #b45309 0%, #f59e0b 100%);
+            box-shadow: 0 8px 16px rgba(245, 158, 11, 0.28);
+        }
+
         .container {
             max-width: 1240px;
             margin: 0 auto;
@@ -386,6 +392,7 @@
                 <h1>QUIRON ADMIN DASHBOARD</h1>
             </div>
             <div class="top-actions">
+                <a class="btn btn-ranking" href="ranking.html">🏆 Ranking</a>
                 <a class="btn btn-main" href="importar.html">Importar Excel</a>
                 <a class="btn btn-soft" href="questoes-react.html">React App</a>
                 <a class="btn btn-soft" href="questoes-game.html">Game 3D</a>
@@ -478,6 +485,24 @@
                     <div class="list-item"><div><strong>Game 3D</strong><span>Banco game_questions</span></div><span class="badge b-info">ok</span></div>
                     <div class="list-item"><div><strong>Modo seguro</strong><span>Sem CRUD de area no dashboard</span></div><span class="badge b-warn">fixo</span></div>
                 </div>
+
+                <!-- Ranking quick-access -->
+                <a href="ranking.html" style="
+                    display: flex; align-items: center; gap: 12px;
+                    margin-top: 14px; padding: 14px;
+                    border-radius: 12px; text-decoration: none;
+                    background: linear-gradient(135deg, #78350f 0%, #b45309 50%, #f59e0b 100%);
+                    box-shadow: 0 8px 20px rgba(180,83,9,0.25);
+                    transition: transform .15s ease, box-shadow .15s ease;
+                    color: #fff;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 28px rgba(180,83,9,0.38)'"
+                       onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(180,83,9,0.25)'">
+                    <span style="font-size:32px;line-height:1">🏆</span>
+                    <div>
+                        <div style="font-size:14px;font-weight:800;font-family:'Space Grotesk',sans-serif">Ver Ranking Global</div>
+                        <div style="font-size:11px;opacity:0.85;margin-top:2px"><span id="rankStat">—</span> usuários cadastrados</div>
+                    </div>
+                    <span style="margin-left:auto;font-size:18px;opacity:0.7">→</span>
+                </a>
             </aside>
         </section>
 
@@ -590,7 +615,19 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadStats);
+        async function loadRankingStat() {
+            try {
+                const { data } = await sb.auth.admin.listUsers({ perPage: 1 });
+                const total = data?.total || data?.users?.length || 0;
+                // Conta total real
+                const { data: d2 } = await sb.auth.admin.listUsers({ perPage: 1000 });
+                const n = d2?.users?.length || 0;
+                const el = document.getElementById('rankStat');
+                if (el) el.textContent = n;
+            } catch(e) {}
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { loadStats(); loadRankingStat(); });
     </script>
 </body>
 </html>
