@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -304,6 +304,108 @@
 
         @media (max-width: 900px) {
             .guide-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── MOBILE (≤ 768px) ── */
+        @media (max-width: 768px) {
+
+            /* Header: menos padding lateral */
+            .header { padding: 12px 14px !important; gap: 8px; }
+            .header h1 { font-size: 15px !important; gap: 8px; }
+
+            /* Container: margem e padding reduzidos */
+            .container { margin: 10px auto !important; padding: 0 10px 24px !important; }
+
+            /* ── TABS: 2 col → 1 col ──
+               Causa raiz do "apertado": grid-template-columns: 1fr 1fr sem breakpoint.
+               !important necessário pois o dark-theme (sem @media) tem mesma especificidade. */
+            .tabs { grid-template-columns: 1fr !important; gap: 10px !important; margin-bottom: 14px; }
+
+            /* Tab-card: MANTER layout vertical (coluna), só reduzir padding.
+               NÃO usar flex-direction:row — colocaria ícone+h3+p+badge na mesma linha. */
+            .tab-card { padding: 14px 16px !important; text-align: center; }
+            .tab-card .icon { font-size: 30px !important; margin-bottom: 6px !important; }
+            .tab-card h3 { font-size: 14px !important; margin-bottom: 6px !important; }
+            .tab-card p { font-size: 12px !important; }
+
+            /* Cards: padding reduzido */
+            .card { padding: 14px !important; margin-bottom: 12px !important; }
+            .card-title { font-size: 14px; margin-bottom: 10px; padding-bottom: 10px; }
+
+            /* Drop-zone: altura reduzida */
+            .drop-zone { padding: 24px 14px !important; }
+            .drop-zone .icon { font-size: 34px; margin-bottom: 8px; }
+            .drop-zone p { font-size: 13px; }
+
+            /* Col mapper: 1 coluna no mobile */
+            .col-map-grid { grid-template-columns: 1fr !important; }
+
+            /* Forms: força 100% de largura.
+               !important em flex para vencer inline style="flex:3" no HTML */
+            .form-row { gap: 8px; }
+            .form-group { min-width: 100% !important; flex: 0 0 100% !important; width: 100% !important; }
+
+            /* Botões grandes: sem min-width fixa que causa overflow */
+            .btn-large { min-width: 0 !important; padding: 12px !important; font-size: 14px !important; }
+            .actions { gap: 8px; flex-direction: column; }
+            .actions .btn-large { width: 100%; }
+
+            /* DB stats: flex → grid 2 colunas no mobile */
+            .db-stats {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 8px !important;
+            }
+            .db-stat {
+                padding: 10px 8px !important;
+                min-width: 0 !important;
+                flex: none !important;
+            }
+            .db-stat .val { font-size: 18px !important; }
+            .db-stat .lbl {
+                font-size: 10px !important;
+                letter-spacing: 0 !important;
+                margin-top: 2px !important;
+                white-space: normal !important;
+                word-break: break-word;
+            }
+
+            /* Preview stats: mesma solução */
+            .prev-stats {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 8px !important;
+            }
+            .prev-stat {
+                padding: 10px 8px !important;
+                min-width: 0 !important;
+                flex: none !important;
+            }
+            .prev-stat .val { font-size: 18px !important; }
+            .prev-stat .lbl { font-size: 10px !important; letter-spacing: 0 !important; }
+
+            /* Extra block */
+            .extra-block { padding: 12px !important; }
+
+            /* Botões do header */
+            .btn { padding: 8px 12px !important; font-size: 12px !important; }
+
+            /* Guide grid: 1 coluna (já tem 900px, mas reforça para 768) */
+            .guide-grid { grid-template-columns: 1fr !important; }
+
+            /* Info note: reduz padding */
+            .info-note { padding: 10px 12px; font-size: 12px; }
+        }
+
+        /* ── TELAS MUITO PEQUENAS (≤ 400px) ── */
+        @media (max-width: 400px) {
+            .header h1 { font-size: 13px !important; }
+            .container { padding: 0 8px 20px !important; }
+            .card { padding: 12px !important; }
+            .tab-card { padding: 12px !important; }
+            .tab-card .icon { font-size: 24px !important; }
+            .tab-card h3 { font-size: 13px !important; }
+            .db-stat .val, .prev-stat .val { font-size: 18px !important; }
         }
     </style>
 </head>
